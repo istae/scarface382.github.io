@@ -1,12 +1,15 @@
-$(document).ready(function(){
-  var object = {};
+var video = document.querySelector("#videoElement");
 
-  object['first'] = "firssdst";
-  object['second'] = "seconsdsd";
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
-  delete object['first'];
+if (navigator.getUserMedia) {
+    navigator.getUserMedia({video: true}, handleVideo, videoError);
+}
 
- for(item in object ) {
-    $('#item').append('<p>' + object[item] + '</p>');
-  }
-});
+function handleVideo(stream) {
+    video.src = window.URL.createObjectURL(stream);
+}
+
+function videoError(e) {
+    // do something
+}
